@@ -22,11 +22,15 @@ export default function Books(): JSX.Element {
     if (isLoading) return <div className="flex py-48 justify-center"><Spinner /></div>;
     if (error) return <div className="text-center text-2xl font-bold">There was an error</div>;
 
-    const leakedBooks = Array.isArray(data) ? data.filter(book => book.literary_genre_id === currentLiteraryGenre?.id) : [];
+    const leakedBooks = currentLiteraryGenre
+  ? data?.filter(book => book.literary_genre_id === currentLiteraryGenre.id)
+  : data;
 
     return (
         <div className="mt-10 mx-6 md:mx-12 lg:mx-16">
-            <h1 className="text-4xl font-black">Books</h1>
+            <h1 className="text-4xl text-white font-bold">
+                <span className="px-4 py-1 bg-teal-600 rounded-xl shadow-lg">Books</span>
+            </h1>
             <p className="text-2xl my-10">
                 Find the best collection on the market.
             </p>
