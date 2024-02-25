@@ -1,7 +1,6 @@
-import ShippingInfo from "../components/ShippingInfo";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Books from "../views/Books";
+import { Outlet } from "react-router-dom";
 
 export default function Home(): JSX.Element{
     return (
@@ -9,7 +8,7 @@ export default function Home(): JSX.Element{
             <Header />
 
             <main>
-                <Books />
+                <Outlet />
             </main>
 
             <Footer />
