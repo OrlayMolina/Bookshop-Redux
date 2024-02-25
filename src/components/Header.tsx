@@ -1,3 +1,4 @@
+import ShippingInfo from './ShippingInfo';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { NavLink } from 'react-router-dom';
@@ -13,6 +14,7 @@ const navigation = [
 export default function Header(): JSX.Element {
   return (
     <div className="bg-gray-800 sticky top-0 z-50">
+      <ShippingInfo />
       <Disclosure as="nav" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {({ open }) => (
           <>

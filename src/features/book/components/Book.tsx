@@ -1,5 +1,5 @@
-import { BookProps } from "../features/book/bookTypes";
-import { formatMoney } from "../helpers/utilities";
+import { BookProps } from "../bookTypes";
+import { formatMoney } from "../../../helpers/utilities";
 
 export default function Book({ book }: { book: BookProps }): JSX.Element {
     const { title, price, image } = book;

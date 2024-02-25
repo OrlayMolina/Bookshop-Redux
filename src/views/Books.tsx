@@ -1,4 +1,4 @@
-import Book from "../components/Book";
+import Book from "../features/book/components/Book";
 import Spinner from "../components/Spinner";
 import { BookProps } from "../features/book/bookTypes";
 import { useSelector } from 'react-redux';
