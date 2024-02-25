@@ -9,7 +9,10 @@ const initialState: BookState = {
   totalItems: 0,
   literaryGenres: [],
   modal: false,
-  currentLiteraryGenre: null,
+  currentLiteraryGenre: {
+    id: 2,
+    genre: 'Fantasy'
+  },
   currentBook: null
 };
 

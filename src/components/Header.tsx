@@ -22,7 +22,7 @@ export default function Header(): JSX.Element {
                   <NavLink to="/" className="text-white">
                     <img 
                         className="h-12 w-16"
-                        src="https://i.ibb.co/bLfgdjm/logo.jpg" 
+                        src="/img/logo.JPG" 
                         alt="Page Logo" />
                   </NavLink>
                 </div>

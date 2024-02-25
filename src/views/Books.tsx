@@ -25,13 +25,13 @@ export default function Books(): JSX.Element {
     const leakedBooks = Array.isArray(data) ? data.filter(book => book.literary_genre_id === currentLiteraryGenre?.id) : [];
 
     return (
-        <div>
+        <div className="mt-10 mx-6 md:mx-12 lg:mx-16">
             <h1 className="text-4xl font-black">Books</h1>
             <p className="text-2xl my-10">
                 Find the best collection on the market.
             </p>
 
-            <div className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
+            <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center'>
                 {leakedBooks?.map(book => (
                     <Book
                         key={book.id}
