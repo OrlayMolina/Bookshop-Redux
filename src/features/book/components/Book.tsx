@@ -10,7 +10,7 @@ export default function Book({ book }: { book: BookProps }): JSX.Element {
                 <img
                     src={`/img/${image}.JPG`}
                     alt={`${title} image`}
-                    className="w-auto object-cover rounded-xl"
+                    className="w-auto object-cover rounded-xl cursor-pointer hover:opacity-80 transition duration-300 ease-in-out"
                 />
 
                 <div className="p-5 flex flex-col items-start">
