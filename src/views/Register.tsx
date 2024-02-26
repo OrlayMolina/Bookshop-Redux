@@ -33,7 +33,7 @@ export default function Register(): JSX.Element {
             const response = await clienteAxios.post('/api/register', data);
             console.log(response);  
         } catch (error) {
-            console.log(Object.values(error?.response.data.errors));
+            setErrors(Object.values(error?.response.data.errors));
         }
     }
 
