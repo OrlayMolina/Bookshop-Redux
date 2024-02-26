@@ -30,7 +30,7 @@ export default function AuthLayout(): JSX.Element {
             <main className="max-w-4xl m-auto mt-4 mb-10 md:mb-14 lg:mb-32 flex flex-col md:flex-row items-center">
 
                 <img
-                    src="../../public/img/logo_backgorund_white.JPG"
+                    src="/img/logo_backgorund_white.JPG"
                     alt="Logo image"
                     className="max-w-xs bg-white rounded-full px-14 py-4 shadow-lg"
                 />
