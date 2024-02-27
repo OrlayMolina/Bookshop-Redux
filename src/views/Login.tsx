@@ -1,6 +1,32 @@
+import MessageConfirmation from "../components/MessageConfirmation";
+import Alert from "../components/Alert";
+import { createRef, RefObject, useState } from "react";
 import { Link } from "react-router-dom";
+// import { useAuth } from "../hooks/useAuth";
+import { DataLogin } from "../types/libraryTypes";
+import clienteAxios from "../config/axios";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Login(): JSX.Element {
+
+    const emailRef: RefObject<HTMLInputElement> =  createRef();
+    const passwordRef: RefObject<HTMLInputElement> = createRef();
+
+    const [errors, setErrors] = useState<string[]>([]);
+    const { login } = useAuth({middleware: 'guest', url: '/'});
+
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+
+        const datos: DataLogin = {
+            email: emailRef?.current?.value,
+            password: passwordRef?.current?.value,
+
+        };
+
+        login(datos, setErrors);
+    }
+
     return (
         <>
             <h1 className="text-4xl font-black">Log In</h1>
@@ -8,8 +34,10 @@ export default function Login(): JSX.Element {
 
             <div className="bg-white shadow-lg rounded-md mt-10 px-5 py-10">
                 <form 
+                    onSubmit={handleSubmit}
                     noValidate
                 >
+                    {errors ? errors.map((error, i )=> <Alert key={i}>{error}</Alert>): null}
                 <div className="mb-4">
                     <label htmlFor="email" className="text-slate-800">
                     Email:
@@ -20,6 +48,7 @@ export default function Login(): JSX.Element {
                     className="mt-2 w-full p-3 bg-gray-50"
                     name="email"
                     placeholder="Your Email"
+                    ref={emailRef}
                     />
                 </div>
 
@@ -33,7 +62,7 @@ export default function Login(): JSX.Element {
                     className="mt-2 w-full p-3 bg-gray-50"
                     name="password"
                     placeholder="Your Password"
-
+                    ref={passwordRef}
                     />
                 </div>
 

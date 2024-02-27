@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { BookProps, LiteraryGenreProps } from "./bookTypes";
-import { getBooks } from "./bookAPI";
+import { getBooks, getCategories } from "./bookAPI";
 import { BookState } from "./bookTypes";
 
 const initialState: BookState = {
@@ -17,6 +17,14 @@ export const fetchBooksAsync = createAsyncThunk<BookProps[]>(
   'book/fetchBooks',
   async () => {
     const response = await getBooks();
+    return response.data;
+  }
+);
+
+export const fetchCategoriesAsync = createAsyncThunk<LiteraryGenreProps[]>(
+  'book/fetchcategories',
+  async () => {
+    const response = await getCategories();
     return response.data;
   }
 );
@@ -66,6 +74,17 @@ const bookSlice = createSlice({
         state.books = action.payload;
       })
       .addCase(fetchBooksAsync.rejected, (state) => {
+        state.status = 'failed';
+        state.books = [];
+      })
+      .addCase(fetchCategoriesAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchCategoriesAsync.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.literaryGenres = action.payload;
+      })
+      .addCase(fetchCategoriesAsync.rejected, (state) => {
         state.status = 'failed';
         state.books = [];
       });

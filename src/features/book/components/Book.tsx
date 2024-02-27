@@ -19,6 +19,13 @@ export default function Book({ book }: { book: BookProps }): JSX.Element {
                         {formatMoney(price)}
                     </p>
                 </div>
+
+                <button 
+                    type="button"
+                    className="bg-teal-600 hover:bg-teal-800 text-white w-full mt-5 p-3 uppercase rounded-2xl font-bold"
+                >
+                    Add to Cart
+                </button>
             </div>
         </div>
     );

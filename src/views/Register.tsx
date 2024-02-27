@@ -2,8 +2,8 @@ import MessageConfirmation from "../components/MessageConfirmation";
 import Alert from "../components/Alert";
 import { createRef, RefObject, useState } from "react";
 import { Link } from "react-router-dom";
-// import { useAuth } from "../hooks/useAuth";
-import { Data } from "../types/libraryTypes";
+import { useAuth } from "../hooks/useAuth";
+import { DataRegister } from "../types/libraryTypes";
 import clienteAxios from "../config/axios";
 
 export default function Register(): JSX.Element {
@@ -15,24 +15,25 @@ export default function Register(): JSX.Element {
 
     const [errors, setErrors] = useState<string[]>([]);
     const [success, setSuccess] = useState(false);
-    // const { register } = useAuth({middleware: 'guest', url: '/'});
+    const { register } = useAuth({middleware: 'guest', url: '/'});
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        const data: Data = {
+        const datos: DataRegister = {
             name: nameRef?.current?.value || '',
             email: emailRef?.current?.value,
             password: passwordRef?.current?.value,
             password_confirmation: passwordConfirmationRef?.current?.value
         };
 
-        // register(data, setErrors, setSuccess);
+        register(datos, setErrors, setSuccess);
 
         try {
-            const response = await clienteAxios.post('/api/register', data);
-            console.log(response);  
-        } catch (error) {
+            const { data } = await clienteAxios.post('/api/register', datos);
+            console.log(data.token);  
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
             setErrors(Object.values(error?.response.data.errors));
         }
     }
