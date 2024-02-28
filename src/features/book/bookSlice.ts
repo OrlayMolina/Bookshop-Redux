@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { BookProps, LiteraryGenreProps } from "./bookTypes";
+import { BookProps, LiteraryGenreProps, BookState } from "./bookTypes";
 import { getBooks, getCategories } from "./bookAPI";
-import { BookState } from "./bookTypes";
 
 const initialState: BookState = {
   status: 'idle',
@@ -86,7 +85,7 @@ const bookSlice = createSlice({
       })
       .addCase(fetchCategoriesAsync.rejected, (state) => {
         state.status = 'failed';
-        state.books = [];
+        state.literaryGenres = [];
       });
   }
 });
