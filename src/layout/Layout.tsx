@@ -8,7 +8,7 @@ import { useAuth } from "../hooks/useAuth";
 
 export default function Layout(): JSX.Element {
 
-    useAuth({middleware: 'auth', url: '/login'});
+    useAuth({middleware: 'auth'});
     const [isChatFloating, setIsChatFloating] = useState(false);
 
     useEffect(() => {

@@ -12,6 +12,7 @@ export const useAuth = ({middleware, url}: {middleware: Middleware, url: string}
     const navigate = useNavigate();
 
     const { data: user, error, mutate}  = useSWR('/api/user', () => 
+
         clienteAxios('/api/user', {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -71,20 +72,23 @@ export const useAuth = ({middleware, url}: {middleware: Middleware, url: string}
     }
 
     useEffect(() => {
-        if(middleware === 'guest' && url && user) {
+        if (middleware === 'guest' && url && user) {
             navigate(url);
         }
-        if(middleware === 'guest' && user && user.admin){
-            navigate('/admin');
-        }
-        if(middleware === 'admin' && user && !user.admin){
-            navigate('/');
-        }
-        if(middleware === 'auth' && error != null){
+        // if(middleware === 'guest' && user && user.admin){
+        //     navigate('/admin');
+        // }
+        // if(middleware === 'admin' && user && !user.admin){
+        //     navigate('/');
+        // }
+        // Verificar si la ruta actual no es la de registro antes de redirigir
+        if (middleware === 'auth' && error != null && location.pathname !== '/account/register') {
             navigate('/account/login');
         }
-    }, [user, error]);
-
+    }, [user, error, location.pathname]);
+    
+    console.log(user);
+    console.log(error)
     return {
         user, 
         register,

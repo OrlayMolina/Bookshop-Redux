@@ -9,7 +9,7 @@ export default function Sidebar(): JSX.Element {
 
     const dispatch = useDispatch();
     const categories: LiteraryGenreProps[] = useSelector(selectLiteraryGenres);
-    const { user} = useAuth({middleware: 'auth', url: '/login'})
+    const { user} = useAuth({middleware: 'auth'})
 
     const handleClickCategory = (category: LiteraryGenreProps) => {
         dispatch(setCurrentLiteraryGenre(category));
