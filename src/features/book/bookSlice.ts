@@ -32,11 +32,8 @@ const bookSlice = createSlice({
   name: 'book',
   initialState,
   reducers: {
-    openModal: (state) => {
-      state.modal = true;
-    },
-    closeModal: (state) => {
-      state.modal = false;
+    setModal: (state, action) => {
+      state.modal = action.payload;
     },
     setCurrentBook: (state, action: PayloadAction<BookProps>) => {
       state.currentBook = action.payload;
@@ -91,8 +88,7 @@ const bookSlice = createSlice({
 });
 
 export const {
-  openModal,
-  closeModal,
+  setModal,
   setCurrentBook,
   setCurrentLiteraryGenre,
   setLiteraryGenres,

@@ -1,8 +1,22 @@
 import { BookProps } from "../bookTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { selectModal, setModal, setCurrentBook } from "../bookSlice";
 import { formatMoney } from "../../../helpers/utilities";
 
 export default function Book({ book }: { book: BookProps }): JSX.Element {
+
+    const dispatch = useDispatch();
     const { title, price, image } = book;
+    const modalBook = useSelector(selectModal);
+
+    const toggleModal = () => {
+        const newState = !modalBook;
+        dispatch(setModal(newState));
+    }
+
+    const handleSetBook = () => {
+        dispatch(setCurrentBook(book));
+    }
 
     return (
         <div className="border w-80 p-6 shadow rounded-xl bg-white">
@@ -23,6 +37,10 @@ export default function Book({ book }: { book: BookProps }): JSX.Element {
                 <button 
                     type="button"
                     className="bg-teal-600 hover:bg-teal-800 text-white w-full mt-5 p-3 uppercase rounded-2xl font-bold"
+                    onClick={() => {
+                        toggleModal();
+                        handleSetBook();
+                    }}
                 >
                     Add to Cart
                 </button>

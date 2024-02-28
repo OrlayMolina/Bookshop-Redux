@@ -1,14 +1,33 @@
 import { useState, useEffect } from "react";
+import Modal from "react-modal";
+import { selectModal } from "../features/book/bookSlice";
+import { useSelector } from "react-redux";
+import ModalBook from "../components/ModalBook";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 import { Outlet } from "react-router-dom";
 import { FiMessageSquare } from "react-icons/fi";
 import { useAuth } from "../hooks/useAuth";
+import { CustomProps } from "../types/libraryTypes";
+
+const customStyles: CustomProps = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
+};
+
+Modal.setAppElement('#root');
 
 export default function Layout(): JSX.Element {
 
     useAuth({middleware: 'auth'});
+    const modal = useSelector(selectModal);
     const [isChatFloating, setIsChatFloating] = useState(false);
 
     useEffect(() => {
@@ -45,6 +64,10 @@ export default function Layout(): JSX.Element {
                 </div>
             </div>
             <Footer />
+
+            <Modal isOpen={modal} style={customStyles}>
+                <ModalBook/>
+            </Modal>
         </>
     );
 }
