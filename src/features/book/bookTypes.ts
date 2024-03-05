@@ -5,6 +5,7 @@ export interface BookProps {
     image: string;
     literary_genre_id: number;
     language: string;
+    quantity?: number;
     editorial: string;
     edition_year: string;
     available: boolean;

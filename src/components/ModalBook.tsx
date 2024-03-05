@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { formatMoney } from "../helpers/utilities";
 import { useDispatch, useSelector } from "react-redux";
 import { selectModal, setModal, selectCurrentBook } from "../features/book/bookSlice";
+import { selectOrders } from "../features/order/orderSlice";
 
 export default function ModalBook() {
 
     const dispatch = useDispatch();
     const modal = useSelector(selectModal);
     const book = useSelector(selectCurrentBook);
-    const { title, image, price } = book || {}; // Add conditional check to handle null value
-    const [cantidad, setCantidad] = useState(1);
-    const [edicion, setEdicion] = useState(false);
+    const order = useSelector(selectOrders);
+    const { title, image, price } = book || {};
+    const [quantity, setQuantity] = useState(1);
+    const [edition, setEdition] = useState(false);
+
+    useEffect(()=> {
+        if(order.some(orderState => orderState.id === book?.id)){
+            const bookEdit = order.filter( orderState => orderState.id === book?.id)[0];
+
+            if (bookEdit && bookEdit.quantity) {
+                setQuantity(bookEdit.quantity);
+                setEdition(true);
+            }
+        }
+    }, [order, book?.id]);
 
     const changeModal = () => {
         const newState = !modal;
@@ -47,14 +60,14 @@ export default function ModalBook() {
                     {title}
                 </h1>
 
-                <p className="mt-5 font-black text-5xl text-amber-500">{formatMoney(price)}</p>
+                <p className="mt-5 font-black text-5xl text-amber-500">{formatMoney(price || 0)}</p>
 
                 <div className="flex gap-4 mt-5">
                     <button
                         type="button"
                         onClick={() => {
-                            if (cantidad <= 1 ) return
-                            setCantidad(cantidad - 1);
+                            if (quantity <= 1 ) return
+                            setQuantity(quantity - 1);
                         }}
                     >
                         <svg 
@@ -70,13 +83,13 @@ export default function ModalBook() {
                             />
                         </svg>
                     </button>
-                    <p className="text-3xl">{cantidad}</p>
+                    <p className="text-3xl">{quantity}</p>
 
                     <button
                         type="button"
                         onClick={() => {
-                            if (cantidad >= 5 ) return
-                            setCantidad(cantidad + 1);
+                            if (quantity >= 5 ) return
+                            setQuantity(quantity + 1);
                         }}
                     >
                         <svg 
@@ -98,9 +111,9 @@ export default function ModalBook() {
 
                 <button
                     type="button"
-                    className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded-md"
+                    className="bg-teal-600 hover:bg-teal-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded-md"
                 >
-                    {edicion ? 'Save Changes' : 'Add to Cart'}
+                    {edition ? 'Save Changes' : 'Add to Cart'}
                 </button>
             </div>
         </div>

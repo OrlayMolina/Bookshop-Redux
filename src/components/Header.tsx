@@ -1,4 +1,5 @@
 import ShippingInfo from './ShippingInfo';
+import SearchBar from './SearchBar';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { NavLink } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { useAuth } from '../hooks/useAuth';
 
 const navigation = [
   { name: 'Home', to: '/', current: true },
+  { name: 'Books', to: '/books', current: true },
   { name: 'Profile', to: '/account', current: false },
   { name: 'Notifications', to: '/notifications', current: false },
   { name: 'Orders', to: '/orders', current: false },
@@ -86,6 +88,7 @@ export default function Header(): JSX.Element {
           </>
         )}
       </Disclosure>
+      <SearchBar />
     </div>
   );
 }
