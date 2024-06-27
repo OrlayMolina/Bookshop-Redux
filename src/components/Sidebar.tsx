@@ -4,12 +4,13 @@ import { LiteraryGenreProps } from "../features/book/bookTypes";
 import { useAuth } from "../hooks/useAuth";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLiteraryGenres, setCurrentLiteraryGenre, fetchCategoriesAsync} from "../features/book/bookSlice";
+import { AppDispatch } from "../app/store";
 
 export default function Sidebar(): JSX.Element {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const categories: LiteraryGenreProps[] = useSelector(selectLiteraryGenres);
-    const { user} = useAuth({middleware: 'auth'})
+    const { user} = useAuth({middleware: 'auth', url: '/'})
 
     const handleClickCategory = (category: LiteraryGenreProps) => {
         dispatch(setCurrentLiteraryGenre(category));
@@ -17,7 +18,7 @@ export default function Sidebar(): JSX.Element {
 
     useEffect(() => {
         dispatch(fetchCategoriesAsync());
-    }, []);
+    }, [dispatch]);
 
     return (
         <aside className="md:w-70 mx-4">
